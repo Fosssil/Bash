@@ -8,14 +8,14 @@ WEBP_FILES=$(ls "$TARGET_DIR"/*.webp 2>/dev/null)
 
 # If no .webp files found, print a message and exit
 if [ -z "$WEBP_FILES" ]; then
-    echo -e "\033[31m-->No webp file found, No need to rename :)<---\033[0m"
-    exit 0
+	echo -e "\033[31m-->No webp file found, No need to rename :)<---\033[0m"
+	exit 0
 fi
 
 # Loop through each .webp file and rename it to .jpg
 for FILE in $WEBP_FILES; do
-    NEW_NAME="${FILE%.webp}.jpg"
-    mv "$FILE" "$NEW_NAME"
+	NEW_NAME="${FILE%.webp}.jpg"
+	mv "$FILE" "$NEW_NAME"
 done
 echo -e "\033[32m-->Rename successful<---\033[0m"
 ####################### Without error message ######################

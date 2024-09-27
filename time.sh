@@ -1,4 +1,4 @@
-while :
-do
-echo -n -e "`date +%T` \b\b\b\b\b\b\b\b\b"
+#!/bin/bash
+while :; do
+	echo -n -e "$(date +%T) \b\b\b\b\b\b\b\b\b"
 done &

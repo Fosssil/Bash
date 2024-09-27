@@ -10,12 +10,12 @@ a=0
 b=1
 echo -e "\033[0;35mThe Fibonacci series is : \033[0m"
 for ((i = 0; i < N; i++)); do
-    # printing fibonacci series
-    echo -e "\033[0;32m$a\033[0m"
-    c=$(((a + b) - 1))
-    fn=$((a + b))
-    a=$b
-    b=$fn
+	# printing fibonacci series
+	echo -e "\033[0;32m$a\033[0m"
+	c=$(((a + b) - 1))
+	fn=$((a + b))
+	a=$b
+	b=$fn
 
 done
 # sum of fibonacci series
