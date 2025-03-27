@@ -5,7 +5,7 @@ sudo apt autoclean
 sudo apt update
 sudo apt full-upgrade
 
-######## FUN STARTS FROM HERE ###############
+
 
 HEIGHT=15
 WIDTH=40
@@ -16,7 +16,6 @@ MENU="Choose one of the following options:"
 
 OPTIONS=(1 "Reboot"
   2 "Exit"
-  3 "Bonus !!")
 
 CHOICE=$(dialog --clear \
   --backtitle "$BACKTITLE" \
