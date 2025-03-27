@@ -36,38 +36,38 @@ else
 fi
 wait
 
-HEIGHT=15
-WIDTH=40
-CHOICE_HEIGHT=5
-BACKTITLE="by SAGAR DAHIYA"
-TITLE="Made by Sagar Dahiya"
-MENU="Choose one of the following options:"
-
-OPTIONS=(
-  1 "Upgrade System"
-  2 "Reboot"
-  3 "Exit"
-)
-
-CHOICE=$(
-  dialog --clear \
-    --backtitle "$BACKTITLE" \
-    --title "$TITLE" \
-    --menu "$MENU" \
-    $HEIGHT $WIDTH $CHOICE_HEIGHT \
-    "${OPTIONS[@]}" \
-    2>&1 >/dev/tty
-)
-clear
-
-case $CHOICE in
-1)
-  sudo apt full-upgrade -y
-  ;;
-2)
-  sudo reboot now
-  ;;
-3)
-  exit
-  ;;
-esac
+# HEIGHT=15
+# WIDTH=40
+# CHOICE_HEIGHT=5
+# BACKTITLE="by SAGAR DAHIYA"
+# TITLE="Made by Sagar Dahiya"
+# MENU="Choose one of the following options:"
+#
+# OPTIONS=(
+#   1 "Upgrade System"
+#   2 "Reboot"
+#   3 "Exit"
+# )
+#
+# CHOICE=$(
+#   dialog --clear \
+#     --backtitle "$BACKTITLE" \
+#     --title "$TITLE" \
+#     --menu "$MENU" \
+#     $HEIGHT $WIDTH $CHOICE_HEIGHT \
+#     "${OPTIONS[@]}" \
+#     2>&1 >/dev/tty
+# )
+# clear
+#
+# case $CHOICE in
+# 1)
+#   sudo apt full-upgrade -y
+#   ;;
+# 2)
+#   sudo reboot now
+#   ;;
+# 3)
+#   exit
+#   ;;
+# esac
