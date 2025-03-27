@@ -3,11 +3,12 @@ echo -e "\033[31m\033[1mPurging lock files...\033[0m"
 sudo rm -rf /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock /var/cache/apt/archives/
 
 echo -e "\033[0;32m\033[1mUpdating Repos...\033[0m"
-echo ""
 sudo apt autoremove -y &&
   sudo apt autoclean &&
   sudo apt update &&
-  sudo add-apt-repository ppa:neovim-ppa/unstable -y
+  echo ""
+echo -e "\033[0;32m\033[1mAdding unstable neovim PPA...\033[0m"
+sudo add-apt-repository ppa:neovim-ppa/unstable -y
 
 echo ""
 echo -e "\033[0;32m\033[1mChecking for required packages...\033[0m"
