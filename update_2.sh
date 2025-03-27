@@ -38,4 +38,3 @@ case $CHOICE in
   ;;
 esac
 
-My name is Sagar
