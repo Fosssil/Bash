@@ -3,7 +3,7 @@ sudo rm -rf /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archiv
 sudo apt autoremove -y
 sudo apt autoclean
 sudo apt update
-sudo apt full-upgrade
+# sudo apt full-upgrade
 
 
 
