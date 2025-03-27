@@ -1,22 +1,22 @@
 #!/bin/bash
 echo -e "\033[31m\033[1m Purging lock files...\033[0m"
-sudo rm -rf /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock /var/cache/apt/archives/ >/dev/null
+sudo rm -rf /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock /var/cache/apt/archives/
 
+echo ""
 echo "Updatinng Repos"
-sudo apt autoremove -y >/dev/null &&
-  sudo apt autoclean >/dev/null &&
-  sudo apt update >/dev/null &&
-  sudo add-apt-repository ppa:neovim-ppa/unstable -y >/dev/null
+sudo apt autoremove -y &&
+  sudo apt autoclean &&
+  sudo apt update &&
+  sudo add-apt-repository ppa:neovim-ppa/unstable -y
 
+echo ""
 echo -e "\033[0;32mChecking for required packages...\033[0m"
 package=("git" "dialog" "ansible-core" "neovim")
+echo ""
 
 for pkg in "${package[@]}"; do
-  # if [ "$(command -v "$pkg")" ]; then
   echo -e "+ $pkg"
-  # else
   package_to_install+=("$pkg")
-  # fi
 done
 
 function install {
@@ -26,19 +26,7 @@ function install {
 }
 
 sudo apt install "${package_to_install[@]}" -y
-# packagesNeeded=$(install)
-# length=${#package_to_install[@]}
-# echo ""
-# if [ "$length" -eq 0 ]; then
-#   echo -e "All packages are installed"
-#   echo ""
-# else
-#   echo "Not Installed: "
-#   # echo "$packagesNeeded"
-#   echo ""
-#   sudo apt install "${package_to_install[@]}" -y
-# fi
-# wait
+wait
 
 # HEIGHT=15
 # WIDTH=40
