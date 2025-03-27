@@ -2,6 +2,7 @@
 echo -e "\033[31m\033[1mPurging lock files...\033[0m"
 sudo rm -rf /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock /var/cache/apt/archives/
 
+echo ""
 echo -e "\033[0;32m\033[1mUpdating Repos...\033[0m"
 sudo apt autoremove -y &&
   sudo apt autoclean &&
