@@ -2,15 +2,14 @@
 echo -e "\033[31m\033[1m Purging lock files...\033[0m"
 sudo rm -rf /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock /var/cache/apt/archives/
 sudo apt autoremove -y &&
-  sudo apt autoclean &&
-  sudo apt update &&
-  sudo add-apt-repository ppa:neovim-ppa/unstable -y
+sudo apt autoclean &&
+sudo apt update &&
+sudo add-apt-repository ppa:neovim-ppa/unstable -y
 
 echo -e "\033[0;32mChecking for required packages...\033[0m"
 package=("git" "dialog" "ansible-core" "neovim")
 
 for pkg in "${package[@]}"; do
-  not
   if [ "$(command -v "$pkg")" ]; then
     echo -e "+ $pkg"
   else
