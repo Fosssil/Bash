@@ -1,9 +1,9 @@
 #!/bin/bash
-echo -e "\033[31m\033[1m Purging lock files...\033[0m"
+echo -e "\033[31m\033[1mPurging lock files...\033[0m"
 sudo rm -rf /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock /var/cache/apt/archives/
 
+echo -e "\033[31m\033[1mUpdating Repos...\033[0m"
 echo ""
-echo "Updatinng Repos"
 sudo apt autoremove -y &&
   sudo apt autoclean &&
   sudo apt update &&
