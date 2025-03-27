@@ -22,19 +22,21 @@ function install {
     echo "$package_install"
   done
 }
-packagesNeeded=$(install)
-length=${#package_to_install[@]}
-echo ""
-if [ "$length" -eq 0 ]; then
-  echo -e "All packages are installed"
-  echo ""
-else
-  echo "Not Installed: "
-  echo "$packagesNeeded"
-  echo ""
-  sudo apt install "${package_to_install[@]}" -y
-fi
-wait
+
+sudo apt install "${package_to_install[@]}" -y
+# packagesNeeded=$(install)
+# length=${#package_to_install[@]}
+# echo ""
+# if [ "$length" -eq 0 ]; then
+#   echo -e "All packages are installed"
+#   echo ""
+# else
+#   echo "Not Installed: "
+#   # echo "$packagesNeeded"
+#   echo ""
+#   sudo apt install "${package_to_install[@]}" -y
+# fi
+# wait
 
 # HEIGHT=15
 # WIDTH=40
