@@ -1,10 +1,12 @@
 #!/bin/bash
 echo -e "\033[31m\033[1m Purging lock files...\033[0m"
-sudo rm -rf /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock /var/cache/apt/archives/
-sudo apt autoremove -y &&
-  sudo apt autoclean &&
-  sudo apt update &&
-  sudo add-apt-repository ppa:neovim-ppa/unstable -y
+sudo rm -rf /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock /var/cache/apt/archives/ 2>/dev/null
+
+echo "Updatinng Repos"
+sudo apt autoremove -y 2>/dev/null &&
+  sudo apt autoclean 2>/dev/null &&
+  sudo apt update 2>/dev/null &&
+  sudo add-apt-repository ppa:neovim-ppa/unstable -y 2>/dev/null
 
 echo -e "\033[0;32mChecking for required packages...\033[0m"
 package=("git" "dialog" "ansible-core" "neovim")
