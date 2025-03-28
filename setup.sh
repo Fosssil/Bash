@@ -26,7 +26,6 @@ print_success() {
   echo -e "${yellow}[*] ${1}${reset}"
 }
 
-
 # Read GitHub token from file
 print_section "Getting token file provided by $git_username from $token_file"
 if [[ ! -f "$token_file" ]]; then
@@ -59,8 +58,11 @@ fi
 
 # Add unstable Neovim PPA
 print_section "Adding unstable Neovim PPA..."
-sudo add-apt-repository ppa:neovim-ppa/unstable -y || print_warning "Warning: Failed to add PPA, continuing..."
-
+if [[ -f /etc/apt/keyring/neovim ]]; then
+  print_warning "Neovim PPA already exist"
+else
+  command sudo add-apt-repository ppa:neovim-ppa/unstable -y || print_warning "Warning: Failed to add PPA, continuing..."
+fi
 # Install required packages
 print_section "Installing required packages..."
 packages=("git" "dialog" "ansible-core" "neovim")
