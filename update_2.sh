@@ -1,22 +1,22 @@
 #!/bin/bash
 red="\033[31m\033[1m"
-green="\033[0;32m\033"
+green="\033[0;32m\033[1m"
 reset="\033[0m"
 
 echo -e "${red}Purging lock files...${reset}"
 sudo rm -rf /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock /var/cache/apt/archives/
 
 echo ""
-echo -e "${green} Updating Repos...${reset}"
+echo -e "${green}Updating Repos...${reset}"
 sudo apt autoremove -y &&
   sudo apt autoclean &&
   sudo apt update &&
   echo ""
-echo -e "${green} Adding unstable neovim PPA...${reset}"
+echo -e "${green}Adding unstable neovim PPA...${reset}"
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
 
 echo ""
-echo -e "${green} Checking for required packages...${reset}"
+echo -e "${green}Checking for required packages...${reset}"
 package=("git" "dialog" "ansible-core" "neovim")
 for pkg in "${package[@]}"; do
   echo -e "+ $pkg"
@@ -34,7 +34,7 @@ sudo apt install "${package_to_install[@]}" -y
 wait
 
 printf "\n"
-echo -e "${green} Cloning the Nvim Configs${reset}"
+echo -e "${green}Cloning the Nvim Configs${reset}"
 git clone https://github.com/Fosssil/nvim.git "$HOME/.config/nvim" || true
 
 # HEIGHT=15
