@@ -21,7 +21,7 @@ if [[ ! -f "$token_file" ]]; then
   echo -e "${red}Error: $token_file not found. Please create it with your GitHub token.${reset}"
   exit 1
 fi
-git_token=$(tr -d '[:space:]' < "$token_file")
+git_token=$(tr -d '[:space:]' <"$token_file")
 if [[ -z "$git_token" ]]; then
   echo -e "${red}Error: $token_file is empty. Please add your GitHub token to it.${reset}"
   exit 1
@@ -55,23 +55,30 @@ if ! sudo apt install -y "${packages[@]}"; then
   echo -e "${red}Warning: Some packages failed to install, continuing...${reset}"
 fi
 
+successfully_cloned() {
+  echo "[*] Cloned successfully"
+}
+
+already_cloned() {
+  echo "[*] Clone already exists, continuing..."
+}
 # Clone Neovim config
 print_section "Cloning the Nvim Configs"
 if git clone https://github.com/Fosssil/nvim.git "$HOME/.config/nvim" 2>/dev/null; then
-  echo "[*] Cloned successfully"
+  successfully_cloned
 else
-  echo "[*] Clone failed or already exists, continuing..."
+  already_cloned
 fi
 
 # Clone Migration Playbook
 print_section "Cloning the Migration Playbook..."
 clone_url="https://${git_username}:${git_token}@github.com/${git_username}/migration_playbook.git"
 if git clone "$clone_url" "$HOME/migration_playbook" 2>/dev/null; then
-  echo "[*] Cloned successfully"
+  successfully_cloned
 else
-  echo "[*] Clone failed or already exists, continuing..."
+  already_cloned
 fi
-unset git_token  # Clean up sensitive variable
+unset git_token # Clean up sensitive variable
 
 # Install Neovim Lazy packages
 print_section "Installing packages into Neovim..."
