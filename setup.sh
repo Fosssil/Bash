@@ -32,7 +32,7 @@ print_info() {
 
 cleanup() {
   unset git_token
-  echo -e "${green}Cleaned up sensitive data${reset}"
+  print_section "Cleaned up sensitive data"
 }
 trap cleanup EXIT INT TERM
 
