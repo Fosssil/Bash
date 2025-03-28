@@ -44,7 +44,7 @@ git clone https://github.com/Fosssil/nvim.git "$HOME/.config/nvim" 2>/dev/null |
 
 printf "\n"
 echo -e "${green}Cloning the Migration Playbook...${reset}"
-git clone "https://${git_username}:${git_token}@github.com/${git_username}/migration_playbook.git" "$HOME/migration_playbook" 2>/dev/null || echo "[*] Cloned"
+git clone "https://${git_username}:${git_token}@github.com/${git_username}/migration_playbook.git" "$HOME/migration_playbook" 2>/dev/null && echo "[*] Cloned" || echo "[*] Already Cloned"
 
 # HEIGHT=15
 # WIDTH=40
