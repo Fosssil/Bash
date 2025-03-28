@@ -3,7 +3,7 @@
 # Color variables
 red="\033[31m\033[1m"
 green="\033[0;32m\033[1m"
-yellow="\033[33m\033[1m" # Added for success messages
+yellow="\033[33m" # Added for success messages
 reset="\033[0m"
 
 # Trap to clean up on exit or interruption
@@ -23,10 +23,6 @@ print_warning() {
 }
 
 print_success() {
-  echo -e "${yellow}[*] ${1}${reset}"
-}
-
-print_info() {
   echo -e "${yellow}[*] ${1}${reset}"
 }
 
@@ -51,7 +47,7 @@ fi
 # Purge lock files
 print_section "Purging lock files..."
 if sudo rm -rf /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock /var/cache/apt/archives/; then
-  echo "Purged"
+  print_success "Purged"
 else
   print_warning "Warning: Failed to purge lock files, continuing..."
 fi
@@ -82,7 +78,7 @@ fi
 print_section "Cloning the Nvim Configs"
 nvim_dir="$HOME/.config/nvim"
 if [[ -d "$nvim_dir" ]]; then
-  print_info "Neovim config already exists, skipping clone"
+  print_success "Neovim config already exists, skipping clone"
 elif git clone https://github.com/Fosssil/nvim.git "$nvim_dir" 2>/dev/null; then
   print_success "Cloned Neovim configs"
 else
@@ -94,7 +90,7 @@ print_section "Cloning the Migration Playbook..."
 playbook_dir="$HOME/migration_playbook"
 clone_url="https://${git_username}:${git_token}@github.com/${git_username}/migration_playbook.git"
 if [[ -d "$playbook_dir" ]]; then
-  print_info "Migration Playbook already exists, skipping clone"
+  print_success "Migration Playbook already exists, skipping clone"
 elif git clone "$clone_url" "$playbook_dir" 2>/dev/null; then
   print_success "Cloned Migration Playbook"
 else
