@@ -101,7 +101,7 @@ if command -v nvim >/dev/null 2>&1; then
   (
     nvim --headless -c "Lazy install" -c "qa" >/dev/null &
     pid=$!
-    while kill -0 $pid 2>/dev/null; do
+    while kill -0 $pid >/dev/null; do
       sleep 1
       printf "."
     done
