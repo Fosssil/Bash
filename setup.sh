@@ -15,15 +15,19 @@ print_section() {
   echo -e "${green}${1}${reset}"
 }
 
+warning_print_section() {
+  echo -e "${red}${1}${reset}"
+}
+
 # Read GitHub token from file
 print_section "Getting token file provided by $git_username from $token_file"
 if [[ ! -f "$token_file" ]]; then
-  echo -e "${red}Error: $token_file not found. Please create it with your GitHub token.${reset}"
+  warning_print_section "Error: $token_file not found. Please create it with you Github token."
   exit 1
 fi
 git_token=$(tr -d '[:space:]' <"$token_file")
 if [[ -z "$git_token" ]]; then
-  echo -e "${red}Error: $token_file is empty. Please add your GitHub token to it.${reset}"
+  warning_print_section "Error: $token_file is empty. Please add your GitHub token to it."
   exit 1
 fi
 
@@ -32,18 +36,18 @@ print_section "Purging lock files..."
 if sudo rm -rf /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock /var/cache/apt/archives/; then
   echo "Purged"
 else
-  echo -e "${red}Warning: Failed to purge lock files, continuing...${reset}"
+  warning_print_section "Warning: Failed to purge lock files, continuing..."
 fi
 
 # Update apt repositories
 print_section "Updating Repos..."
 if ! sudo apt autoremove -y || ! sudo apt autoclean || ! sudo apt update; then
-  echo -e "${red}Warning: Repository update failed, continuing...${reset}"
+  warning_print_section "Warning: Repository update failed, continuing..."
 fi
 
 # Add unstable Neovim PPA
 print_section "Adding unstable neovim PPA..."
-sudo add-apt-repository ppa:neovim-ppa/unstable -y || echo -e "${red}Warning: Failed to add PPA, continuing...${reset}"
+sudo add-apt-repository ppa:neovim-ppa/unstable -y || warning_print_section "Warning: Failed to add PPA, continuing..."
 
 # Install required packages
 print_section "Installing required packages..."
@@ -52,7 +56,7 @@ for pkg in "${packages[@]}"; do
   echo -e "+ $pkg"
 done
 if ! sudo apt install -y "${packages[@]}"; then
-  echo -e "${red}Warning: Some packages failed to install, continuing...${reset}"
+  warning_print_section "Warning: Some packages failed to install, continuing..."
 fi
 
 successfully_cloned() {
@@ -85,7 +89,7 @@ print_section "Installing packages into Neovim..."
 if command -v nvim >/dev/null 2>&1; then
   nvim --headless -c "Lazy install" -c "qa" 2>/dev/null && echo "[*] Lazy packages installed" || echo -e "${red}Warning: Lazy install failed${reset}"
 else
-  echo -e "${red}Error: Neovim not found, skipping Lazy install${reset}"
+  warning_print_section "Error: Neovim not found, skipping Lazy install"
 fi
 
 # Optional dialog menu (uncomment to enable)
