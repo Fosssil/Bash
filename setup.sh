@@ -25,7 +25,8 @@ print_success() {
 }
 
 # Prompt for sudo password if not already cached
-echo -e "${yellow}This script requires sudo privileges. Please enter your password if prompted.${reset}"
+print_warning "This script requires sudo privileges.
+Please enter your password if prompted."
 # if [[ $? -ne 0 ]]; then
 if ! sudo -v; then
   echo -e "${red}Error: Sudo authentication failed. Exiting.${reset}"
