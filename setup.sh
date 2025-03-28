@@ -51,7 +51,7 @@ sudo add-apt-repository ppa:neovim-ppa/unstable -y || warning_print_section "War
 
 # Install required packages
 print_section "Installing required packages..."
-packages=("git" "dialog" "ansible-core" "neovim")
+packages=("git" "dialog" "ansible-core" "neovim" "hhh")
 for pkg in "${packages[@]}"; do
   echo -e "+ $pkg"
 done
