@@ -3,11 +3,9 @@ red="\033[31m\033[1m"
 green="\033[0;32m\033[1m"
 reset="\033[0m"
 
-echo -e "${green}Enter your GitHub username: ${reset}"
-read -r git_username
+read -rp "${green}Enter your Github Username: ${reset}" git_username
 
-echo -e "${green}Enter your Github Token: ${reset}"
-read -r git_token
+read -rp "${green}Enter your Github Token: ${reset}" git_token
 
 echo -e "${red}Purging lock files...${reset}"
 sudo rm -rf /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock /var/cache/apt/archives/
