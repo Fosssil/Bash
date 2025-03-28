@@ -58,11 +58,12 @@ fi
 
 # Add unstable Neovim PPA
 print_section "Adding unstable Neovim PPA..."
-if [[ -f /etc/apt/keyring/neovim ]]; then
+if compgen -G "/etc/apt/keyring/neovim*" >/dev/null; then
   print_warning "Neovim PPA already exist"
 else
   command sudo add-apt-repository ppa:neovim-ppa/unstable -y || print_warning "Warning: Failed to add PPA, continuing..."
 fi
+
 # Install required packages
 print_section "Installing required packages..."
 packages=("git" "dialog" "ansible-core" "neovim")
@@ -101,8 +102,8 @@ if command -v nvim >/dev/null 2>&1; then
     nvim --headless -c "Lazy install" -c "qa" >/dev/null &
     pid=$!
     while kill -0 $pid 2>/dev/null; do
-      printf "."
       sleep 1
+      printf "."
     done
     echo ""
   ) &&
