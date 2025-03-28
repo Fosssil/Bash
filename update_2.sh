@@ -9,7 +9,7 @@ printf "\n"
 
 printf "\n"
 echo -e "${red}Purging lock files...${reset}"
-sudo rm -rf /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock /var/cache/apt/archives/
+sudo rm -rf /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock /var/cache/apt/archives/ && echo "Purged"
 
 printf "\n"
 echo -e "${green}Updating Repos...${reset}"
