@@ -7,6 +7,7 @@ read -rp "$(echo -e "${green}Enter your Github Username: ${reset}")" git_usernam
 read -rsp "$(echo -e "${green}Enter your Github Token (input will be hidden): ${reset}")" git_token
 printf "\n"
 
+printf "\n"
 echo -e "${red}Purging lock files...${reset}"
 sudo rm -rf /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock /var/cache/apt/archives/
 
