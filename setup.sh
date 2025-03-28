@@ -28,7 +28,7 @@ print_success() {
 
 cleanup() {
   unset git_token
-  print_success "Cleaned up sensitive data"
+  print_section "Cleaned up sensitive data"
 }
 trap cleanup EXIT INT TERM
 
