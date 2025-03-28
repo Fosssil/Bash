@@ -4,7 +4,9 @@ green="\033[0;32m\033[1m"
 reset="\033[0m"
 
 read -rp "$(echo -e "${green}Enter your Github Username: ${reset}")" git_username
+echo "$git_username"
 read -rsp "$(echo -e "${green}Enter your Github Token (input will be hidden): ${reset}")" git_token
+echo "$git_token"
 printf "\n"
 
 printf "\n"
