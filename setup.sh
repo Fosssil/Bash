@@ -110,8 +110,8 @@ if command -v nvim >/dev/null 2>&1; then
       sleep 1
     done
     echo ""
-  ) &
-  print_success "Lazy packages installed"
+  ) &&
+    print_success "Lazy packages installed"
 else
   print_warning "Error: Neovim not found, skipping Lazy install"
 fi
