@@ -58,7 +58,7 @@ fi
 
 # Add unstable Neovim PPA
 print_section "Adding unstable Neovim PPA..."
-if find /etc/apt/keyring -maxdepth 1 -type f -regex ".*/neovim.*" | grep -q .; then
+if find /etc/apt/keyrings -maxdepth 1 -type f -regex ".*/neovim.*" | grep -q .; then
   print_warning "Neovim PPA already exist"
 else
   command sudo add-apt-repository ppa:neovim-ppa/unstable -y || print_warning "Warning: Failed to add PPA, continuing..."
