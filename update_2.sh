@@ -3,10 +3,11 @@ red="\033[31m\033[1m"
 green="\033[0;32m\033[1m"
 reset="\033[0m"
 
-read -rp "$(echo -e "${green}Enter your Github Username: ${reset}")" git_username
-
+# read -rp "$(echo -e "${green}Enter your Github Username: ${reset}")" git_username
+git_username="Fosssil"
 token_file="$HOME/token"
-echo -e "${green}Getting token file from $token_file${reset}"
+
+echo -e "${green}Getting token file provided by $git_username from $token_file${reset}"
 if [[ -f "$token_file" ]]; then
   git_token=$(tr -d '[:space:]' <"$token_file") # Read and trim whitespace
   if [[ -z "$git_token" ]]; then
