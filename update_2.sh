@@ -3,31 +3,32 @@ red="\033[31m\033[1m"
 green="\033[0;32m\033[1m"
 reset="\033[0m"
 
-read -rp "${green}Enter your Github Username: ${reset}" git_username
+read -rep "${green}Enter your Github Username: ${reset}" git_username
 
-read -rp "${green}Enter your Github Token: ${reset}" git_token
+read -rep "${green}Enter your Github Token: ${reset}" git_token
 
 echo -e "${red}Purging lock files...${reset}"
 sudo rm -rf /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/cache/apt/archives/lock /var/cache/apt/archives/
 
-echo ""
+printf "\n"
 echo -e "${green}Updating Repos...${reset}"
 sudo apt autoremove -y &&
   sudo apt autoclean &&
   sudo apt update &&
-  echo ""
+  printf "\n"
+
 echo -e "${green}Adding unstable neovim PPA...${reset}"
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
 
-echo ""
+printf "\n"
 echo -e "${green}Checking for required packages...${reset}"
 package=("git" "dialog" "ansible-core" "neovim")
 for pkg in "${package[@]}"; do
   echo -e "+ $pkg"
   package_to_install+=("$pkg")
 done
-echo ""
 
+printf "\n"
 function install {
   for package_install in "${package_to_install[@]}"; do
     echo "$package_install"
@@ -41,6 +42,7 @@ printf "\n"
 echo -e "${green}Cloning the Nvim Configs${reset}"
 git clone https://github.com/Fosssil/nvim.git "$HOME/.config/nvim" 2>/dev/null || echo -e "[*] Cloned"
 
+printf "\n"
 echo -e "${green}Cloning the Migration Playbook...${reset}"
 git clone "https://${git_username}:${git_token}@github.com/${git_username}/migration_playbook.git" "$HOME/migration_playbook" 2>/dev/null || echo "[*] Cloned"
 
