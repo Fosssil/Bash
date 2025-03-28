@@ -4,9 +4,9 @@ green="\033[0;32m\033[1m"
 reset="\033[0m"
 
 read -rp "$(echo -e "${green}Enter your Github Username: ${reset}")" git_username
+
 token_file="$HOME/token"
 echo -e "${green}Getting token file from $token_file${reset}"
-
 if [[ -f "$token_file" ]]; then
   git_token=$(tr -d '[:space:]' <"$token_file") # Read and trim whitespace
   if [[ -z "$git_token" ]]; then
@@ -56,7 +56,7 @@ git clone https://github.com/Fosssil/nvim.git "$HOME/.config/nvim" 2>/dev/null |
 
 printf "\n"
 echo -e "${green}Cloning the Migration Playbook...${reset}"
-git clone "https://${git_username}:${git_token}@github.com/${git_username}/migration_playbook.git" "$HOME/migration_playbook" # 2>/dev/null && echo "[*] Cloned" || echo "[*] Already Cloned"
+git clone "https://${git_username}:${git_token}@github.com/${git_username}/migration_playbook.git" "$HOME/migration_playbook" 2>/dev/null && echo "[*] Cloned" || echo "[*] Already Cloned"
 
 # HEIGHT=15
 # WIDTH=40
