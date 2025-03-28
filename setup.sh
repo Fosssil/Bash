@@ -3,10 +3,8 @@
 # Color variables
 red="\033[31m\033[1m"
 green="\033[0;32m\033[1m"
-yellow="\033[33m" # Added for success messages
+yellow="\033[33m"
 reset="\033[0m"
-
-# Trap to clean up on exit or interruption
 
 # Hardcoded defaults (configurable via env vars)
 git_username="Fosssil"
@@ -25,6 +23,14 @@ print_warning() {
 print_success() {
   echo -e "${yellow}[*] ${1}${reset}"
 }
+
+# Prompt for sudo password if not already cached
+echo -e "${yellow}This script requires sudo privileges. Please enter your password if prompted.${reset}"
+# if [[ $? -ne 0 ]]; then
+if ! sudo -v; then
+  echo -e "${red}Error: Sudo authentication failed. Exiting.${reset}"
+  exit 1
+fi
 
 # Read GitHub token from file
 print_section "Getting token file provided by $git_username from $token_file"
@@ -112,6 +118,7 @@ else
   print_warning "Error: Neovim not found, skipping Lazy install"
 fi
 
+# Trap to clean up on exit or interruption
 cleanup() {
   unset git_token
   print_section "Cleaned up sensitive data"
