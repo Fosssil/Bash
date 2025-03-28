@@ -29,6 +29,10 @@ function install {
 sudo apt install "${package_to_install[@]}" -y
 wait
 
+printf "\n"
+echo "Cloning the Nvim Configs"
+git clone https://github.com/Fosssil/nvim.git "$USER/.config/"
+
 # HEIGHT=15
 # WIDTH=40
 # CHOICE_HEIGHT=5
