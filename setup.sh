@@ -100,17 +100,8 @@ fi
 # Install Neovim Lazy packages
 print_section "Installing packages into Neovim..."
 if command -v nvim >/dev/null 2>&1; then
-  # nvim --headless -c "Lazy install" -c "qa" 2>/dev/null &&
-  (
-    nvim --headless -c "Lazy install" -c "qa" 2>/dev/null &
-    pid=$!
-    while kill -0 $pid 2>/dev/null; do
-      printf "."
-      sleep 1
-    done
-    echo ""
-  ) &
-  print_success "Lazy packages installed"
+  nvim --headless -c "Lazy install" -c "qa" 2>/dev/null &&
+    print_success "Lazy packages installed"
 else
   print_warning "Error: Neovim not found, skipping Lazy install"
 fi
