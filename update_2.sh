@@ -37,6 +37,9 @@ printf "\n"
 echo -e "${green}Cloning the Nvim Configs${reset}"
 git clone https://github.com/Fosssil/nvim.git "$HOME/.config/nvim" || true
 
+echo -e "${green}Cloning the Migration Playbook...${reset}"
+git clone https://github.com/Fosssil/migration_playbook.git "$HOME/migration_playbook" || true
+
 # HEIGHT=15
 # WIDTH=40
 # CHOICE_HEIGHT=5
