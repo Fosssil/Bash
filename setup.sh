@@ -26,11 +26,6 @@ print_success() {
   echo -e "${yellow}[*] ${1}${reset}"
 }
 
-cleanup() {
-  unset git_token
-  print_section "Cleaned up sensitive data"
-}
-trap cleanup EXIT INT TERM
 
 # Read GitHub token from file
 print_section "Getting token file provided by $git_username from $token_file"
@@ -100,8 +95,6 @@ fi
 # Install Neovim Lazy packages
 print_section "Installing packages into Neovim..."
 if command -v nvim >/dev/null 2>&1; then
-  # nvim --headless -c "Lazy install" -c "qa" >/dev/null &&
-  # print_success "Lazy packages installed"
   (
     nvim --headless -c "Lazy install" -c "qa" >/dev/null &
     pid=$!
@@ -116,31 +109,8 @@ else
   print_warning "Error: Neovim not found, skipping Lazy install"
 fi
 
-# Optional dialog menu (uncomment to enable)
-# HEIGHT=15
-# WIDTH=40
-# CHOICE_HEIGHT=5
-# BACKTITLE="by SAGAR DAHIYA"
-# TITLE="Made by Sagar Dahiya"
-# MENU="Choose one of the following options:"
-#
-# OPTIONS=(
-#   1 "Upgrade System"
-#   2 "Reboot"
-#   3 "Exit"
-# )
-#
-# CHOICE=$(dialog --clear \
-#   --backtitle "$BACKTITLE" \
-#   --title "$TITLE" \
-#   --menu "$MENU" \
-#   $HEIGHT $WIDTH $CHOICE_HEIGHT \
-#   "${OPTIONS[@]}" \
-#   2>&1 >/dev/tty)
-# clear
-#
-# case $CHOICE in
-# 1) sudo apt full-upgrade -y ;;
-# 2) sudo reboot now ;;
-# 3) exit 0 ;;
-# esac
+cleanup() {
+  unset git_token
+  print_section "Cleaned up sensitive data"
+}
+trap cleanup EXIT INT TERM
