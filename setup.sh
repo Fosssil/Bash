@@ -58,7 +58,7 @@ fi
 
 # Add unstable Neovim PPA
 print_section "Adding unstable Neovim PPA..."
-if compgen -G "/etc/apt/keyring/neovim*" >/dev/null; then
+if find /etc/apt/keyring -maxdepth 1 -type f -regex ".*/neovim.*" | grep -q .; then
   print_warning "Neovim PPA already exist"
 else
   command sudo add-apt-repository ppa:neovim-ppa/unstable -y || print_warning "Warning: Failed to add PPA, continuing..."
@@ -101,9 +101,9 @@ if command -v nvim >/dev/null 2>&1; then
   (
     nvim --headless -c "Lazy install" -c "qa" >/dev/null &
     pid=$!
-    while kill -0 $pid >/dev/null; do
-      sleep 1
+    while kill -0 $pid 2>/dev/null; do
       printf "."
+      sleep 1
     done
     echo ""
   ) &&
