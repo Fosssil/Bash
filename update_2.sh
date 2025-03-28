@@ -31,7 +31,7 @@ wait
 
 printf "\n"
 echo "Cloning the Nvim Configs"
-git clone https://github.com/Fosssil/nvim.git "$USER/.config/"
+git clone https://github.com/Fosssil/nvim.git "$HOME/.config/"
 
 # HEIGHT=15
 # WIDTH=40
