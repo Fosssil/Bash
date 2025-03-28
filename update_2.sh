@@ -35,7 +35,7 @@ wait
 
 printf "\n"
 echo -e "${green}Cloning the Nvim Configs${reset}"
-git clone https://github.com/Fosssil/nvim.git "$HOME/.config/nvim" || true
+git clone https://github.com/Fosssil/nvim.git "$HOME/.config/nvim" || echo -e "[*] Cloned"
 
 echo -e "${green}Cloning the Migration Playbook...${reset}"
 git clone https://github.com/Fosssil/migration_playbook.git "$HOME/migration_playbook" || true
