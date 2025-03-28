@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sudo su
 # Color variables
 red="\033[31m\033[1m"
 green="\033[0;32m\033[1m"
@@ -19,6 +20,13 @@ warning_print_section() {
   echo -e "${red}${1}${reset}"
 }
 
+successfully_cloned() {
+  echo "[*] Cloned successfully"
+}
+
+already_cloned() {
+  echo "[*] Clone already exists, continuing..."
+}
 # Read GitHub token from file
 print_section "Getting token file provided by $git_username from $token_file"
 if [[ ! -f "$token_file" ]]; then
@@ -59,13 +67,6 @@ if ! sudo apt install -y "${packages[@]}"; then
   warning_print_section "Warning: Some packages failed to install, continuing..."
 fi
 
-successfully_cloned() {
-  echo "[*] Cloned successfully"
-}
-
-already_cloned() {
-  echo "[*] Clone already exists, continuing..."
-}
 # Clone Neovim config
 print_section "Cloning the Nvim Configs"
 if git clone https://github.com/Fosssil/nvim.git "$HOME/.config/nvim" 2>/dev/null; then
