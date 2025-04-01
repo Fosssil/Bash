@@ -58,7 +58,7 @@ print_section "Updating Repos..."
 if sudo apt update &&
   sudo apt autoremove -y &&
   sudo apt autoclean; then
-  echo "Repositories updated"
+  print_success "Repositories updated"
 else
   print_warning "Warning: Repository update failed, continuing..."
 fi
@@ -74,7 +74,7 @@ fi
 # Add nodejs latest version
 print_section "Adding node source setup for nodejs"
 curl -fsSL https://deb.nodesource.com/setup_23.x -o nodesource_setup.sh
-sudo -E bash nodesource_setup.sh
+sudo -E bash nodesource_setup.sh >/dev/null
 wait
 
 # Install required packages
@@ -85,7 +85,8 @@ if ! sudo apt install -y "${packages[@]}"; then
   print_warning "Warning: Some packages failed to install, continuing..."
 fi
 
-print_section "Node verion on your system is... $(node -v)"
+print_section "Node verion on your system is..."
+print_success "$(node -v)"
 
 # Clone Neovim config
 print_section "Cloning the Nvim Configs"
