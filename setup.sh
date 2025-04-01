@@ -3,8 +3,7 @@
 # Color variables
 red="\033[31m\033[1m"
 green="\033[0;32m\033[1m"
-yellow="\033[33m\033[1m"
-# yellow="\033[0;36m\033[1m"
+cyan="\033[0;36m\033[1m"
 reset="\033[0m"
 
 # Hardcoded defaults (configurable via env vars)
@@ -29,13 +28,13 @@ print_warning() {
 }
 
 print_success() {
-  echo -e "${yellow}${1}${reset}"
+  echo -e "${cyan}${1}${reset}"
 }
 
 # Prompt for sudo password if not already cached
 print_warning "This script requires sudo privileges.\nPlease enter your password if prompted."
 if ! sudo -v; then
-  echo -e "${red}Error: Sudo authentication failed. Exiting.${reset}"
+  print_warning "Error: Sudo authentication failed. Exiting."
   exit 1
 fi
 
