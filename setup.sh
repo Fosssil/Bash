@@ -3,12 +3,7 @@
 # Color variables
 red="\033[31m\033[1m"
 green="\033[0;32m\033[1m"
-<<<<<<< HEAD
 cyan="\033[0;36m\033[1m"
-=======
-# yellow="\033[33m"
-yellow="\033[0;36m\033[1m"
->>>>>>> parent of 7e83b47 (Tuesday 01 April 2025 06:29:27 PM IST)
 reset="\033[0m"
 
 # Hardcoded defaults (configurable via env vars)
