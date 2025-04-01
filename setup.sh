@@ -6,6 +6,13 @@ green="\033[0;32m\033[1m"
 yellow="\033[33m"
 reset="\033[0m"
 
+# Trap to clean up on exit or interruption
+cleanup() {
+  unset git_token
+  print_section "Cleaned up sensitive data"
+}
+trap cleanup EXIT INT TERM
+
 # Hardcoded defaults (configurable via env vars)
 git_username="Fosssil"
 token_file="$HOME/token"
@@ -25,9 +32,7 @@ print_success() {
 }
 
 # Prompt for sudo password if not already cached
-print_warning "This script requires sudo privileges.
-Please enter your password if prompted."
-# if [[ $? -ne 0 ]]; then
+print_warning "This script requires sudo privileges. \n Please enter your password if prompted."
 if ! sudo -v; then
   echo -e "${red}Error: Sudo authentication failed. Exiting.${reset}"
   exit 1
@@ -69,25 +74,23 @@ else
   command sudo add-apt-repository ppa:neovim-ppa/unstable -y || print_warning "Warning: Failed to add PPA, continuing..."
 fi
 
-# Add nodejs latest version
-print_section "Adding node source setup for nodejs"
-curl -fsSL https://deb.nodesource.com/setup_23.x -o nodesource_setup.sh
-(
-  sudo -E bash nodesource_setup.sh >/dev/null &
-  pid=$!
-  while kill -0 $pid 2>/dev/null; do
-    printf "."
-    sleep 1
-  done
-  echo ""
-) &&
-  print_success "Done"
+# Add Node.js source setup
+print_section "Adding Node.js source setup (v23.x)"
+if curl -fsSL https://deb.nodesource.com/setup_23.x -o nodesource_setup.sh 2>/dev/null; then
+  (
+    sudo -E bash nodesource_setup.sh >/dev/null 2>&1 &
+    pid=$!
+    wait $pid && print_success "Node.js source added"
+  )
+  rm -f nodesource_setup.sh # Clean up temporary file
+else
+  print_warning "Warning: Failed to download Node.js setup script, continuing..."
+fi
 
 # Install required packages
 print_section "Installing required packages:"
 packages=("git" "curl" "dialog" "ansible-core" "neovim" "nodejs")
 printf "${green}+ %s\n${reset}" "${packages[@]}"
-printf "\n"
 if sudo apt-get install -y "${packages[@]}" >/dev/null; then
   print_success "Done"
 else
@@ -125,22 +128,10 @@ fi
 print_section "Installing packages into Neovim..."
 if command -v nvim >/dev/null 2>&1; then
   (
-    nvim --headless -c "Lazy install" -c "qa" >/dev/null &
+    nvim --headless -c "Lazy install" -c "qa" >/dev/null 2>&1 &
     pid=$!
-    while kill -0 $pid 2>/dev/null; do
-      printf "."
-      sleep 1
-    done
-    echo ""
-  ) &&
-    print_success "Lazy packages installed"
+    wait $pid && print_success "Lazy packages installed"
+  )
 else
   print_warning "Error: Neovim not found, skipping Lazy install"
 fi
-
-# Trap to clean up on exit or interruption
-cleanup() {
-  unset git_token
-  print_section "Cleaned up sensitive data"
-}
-trap cleanup EXIT INT TERM
