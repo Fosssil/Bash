@@ -60,7 +60,7 @@ fi
 
 # Update apt repositories
 print_section "Updating Repos..."
-if sudo apt-get update >/dev/null && sudo apt-get autoremove -y >/dev/null && sudo apt-get autoclean >/dev/null; then
+if sudo apt-get update >/dev/null && sudo apt autoremove -y >/dev/null && sudo apt autoclean >/dev/null; then
   print_success "Repositories updated"
 else
   print_warning "Warning: Repository update failed, continuing..."
