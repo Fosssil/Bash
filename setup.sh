@@ -3,9 +3,7 @@
 # Color variables
 red="\033[31m\033[1m"
 green="\033[0;32m\033[1m"
-# cyan="\033[0;36m\033[1m"
-yellow="\033[33m"
-# yellow="\033[0;36m\033[1m"
+yellow="\033[0;36m\033[1m"
 reset="\033[0m"
 
 # Hardcoded defaults (configurable via env vars)
@@ -88,7 +86,7 @@ if curl -fsSL https://deb.nodesource.com/setup_23.x -o nodesource_setup.sh 2>/de
     done
     echo ""
   ) &&
-    echo "Done"
+    print_success "Done"
   rm -f nodesource_setup.sh # removing temporary file
 else
   print_warning "Warning: Failed to download Node.js setup script, continuing..."
