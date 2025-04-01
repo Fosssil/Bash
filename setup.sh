@@ -88,8 +88,8 @@ curl -fsSL https://deb.nodesource.com/setup_23.x -o nodesource_setup.sh
 # Install required packages
 print_section "Installing required packages..."
 packages=("git" "curl" "dialog" "ansible-core" "neovim" "nodejs")
-printf '+ %s\n' "${green} ${packages[@]} ${reset}"
-# print_section "+ ${packages[@]}"
+printf "${green}+ %s\n${reset}" "${packages[@]}"
+printf "\n"
 if ! sudo apt install -y "${packages[@]}"; then
   print_warning "Warning: Some packages failed to install, continuing..."
 fi
