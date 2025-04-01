@@ -10,6 +10,13 @@ reset="\033[0m"
 git_username="Fosssil"
 token_file="$HOME/token"
 
+# Trap to clean up on exit or interruption
+cleanup() {
+  unset git_token
+  print_section "Cleaned up sensitive data"
+}
+trap cleanup EXIT INT TERM
+
 # Printing functions
 print_section() {
   printf "\n"
@@ -25,9 +32,7 @@ print_success() {
 }
 
 # Prompt for sudo password if not already cached
-print_warning "This script requires sudo privileges.
-Please enter your password if prompted."
-# if [[ $? -ne 0 ]]; then
+print_warning "This script requires sudo privileges.\n Please enter your password if prompted."
 if ! sudo -v; then
   echo -e "${red}Error: Sudo authentication failed. Exiting.${reset}"
   exit 1
@@ -55,7 +60,7 @@ fi
 
 # Update apt repositories
 print_section "Updating Repos..."
-if sudo apt-get update >/dev/null && sudo apt autoremove -y >/dev/null && sudo apt autoclean >/dev/null; then
+if sudo apt update && sudo apt autoremove -y && sudo apt autoclean; then
   print_success "Repositories updated"
 else
   print_warning "Warning: Repository update failed, continuing..."
@@ -71,17 +76,21 @@ fi
 
 # Add nodejs latest version
 print_section "Adding node source setup for nodejs"
-curl -fsSL https://deb.nodesource.com/setup_23.x -o nodesource_setup.sh
-(
-  sudo -E bash nodesource_setup.sh >/dev/null &
-  pid=$!
-  while kill -0 $pid 2>/dev/null; do
-    printf "."
-    sleep 1
-  done
-  echo ""
-) &&
-  print_success "Done"
+if curl -fsSL https://deb.nodesource.com/setup_23.x -o nodesource_setup.sh 2>/dev/null; then
+  (
+    sudo -E bash nodesource_setup.sh >/dev/null &
+    pid=$!
+    while kill -0 $pid 2>/dev/null; do
+      printf "."
+      sleep 1
+    done
+    echo ""
+  ) &&
+    print_success "Done"
+  rm -f nodesource_setup.sh # removing temporary file
+else
+  print_warning "Warning: Failed to download Node.js setup script, continuing..."
+fi
 
 # Install required packages
 print_section "Installing required packages:"
@@ -95,8 +104,12 @@ else
 fi
 
 # Node version
-print_section "Node verion on your system is..."
-print_success "$(node -v)"
+print_section "Node version on your system is..."
+if command -v node >/dev/null 2>&1; then
+  print_success "$(node -v)"
+else
+  print_warning "Warning: Node.js not found"
+fi
 
 # Clone Neovim config
 print_section "Cloning the Nvim Configs"
@@ -137,10 +150,3 @@ if command -v nvim >/dev/null 2>&1; then
 else
   print_warning "Error: Neovim not found, skipping Lazy install"
 fi
-
-# Trap to clean up on exit or interruption
-cleanup() {
-  unset git_token
-  print_section "Cleaned up sensitive data"
-}
-trap cleanup EXIT INT TERM
