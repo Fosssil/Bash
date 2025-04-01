@@ -3,7 +3,9 @@
 # Color variables
 red="\033[31m\033[1m"
 green="\033[0;32m\033[1m"
-cyan="\033[0;36m\033[1m"
+# cyan="\033[0;36m\033[1m"
+yellow="\033[33m"
+# yellow="\033[0;36m\033[1m"
 reset="\033[0m"
 
 # Hardcoded defaults (configurable via env vars)
@@ -28,7 +30,7 @@ print_warning() {
 }
 
 print_success() {
-  echo -e "${cyan}${1}${reset}"
+  echo -e "${yellow}${1}${reset}"
 }
 
 # Prompt for sudo password if not already cached
