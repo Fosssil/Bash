@@ -71,13 +71,21 @@ else
   command sudo add-apt-repository ppa:neovim-ppa/unstable -y || print_warning "Warning: Failed to add PPA, continuing..."
 fi
 
+# Add nodejs latest version
+print_section "Adding node source setup for nodejs"
+curl -fsSL https://deb.nodesource.com/setup_23.x -o nodesource_setup.sh
+sudo -E nodesource_setup.sh
+wait
+
 # Install required packages
 print_section "Installing required packages..."
-packages=("git" "dialog" "ansible-core" "neovim")
+packages=("git" "curl" "dialog" "ansible-core" "neovim" "nodejs")
 printf '+ %s\n' "${packages[@]}"
 if ! sudo apt install -y "${packages[@]}"; then
   print_warning "Warning: Some packages failed to install, continuing..."
 fi
+
+print_section "Node verion on your system is... $(node -v)"
 
 # Clone Neovim config
 print_section "Cloning the Nvim Configs"
