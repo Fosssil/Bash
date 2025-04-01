@@ -55,7 +55,7 @@ fi
 
 # Update apt repositories
 print_section "Updating Repos..."
-if sudo apt update &&
+if sudo apt-get update >/dev/null &&
   sudo apt autoremove -y &&
   sudo apt autoclean; then
   print_success "Repositories updated"
@@ -90,10 +90,13 @@ print_section "Installing required packages:"
 packages=("git" "curl" "dialog" "ansible-core" "neovim" "nodejs")
 printf "${green}+ %s\n${reset}" "${packages[@]}"
 printf "\n"
-if ! sudo apt-get install -y "${packages[@]}" >/dev/null; then
+if sudo apt-get install -y "${packages[@]}" >/dev/null; then
+  print_success "Done"
+else
   print_warning "Warning: Some packages failed to install, continuing..."
 fi
 
+# Node version
 print_section "Node verion on your system is..."
 print_success "$(node -v)"
 
@@ -127,6 +130,7 @@ if command -v nvim >/dev/null 2>&1; then
     nvim --headless -c "Lazy install" -c "qa" >/dev/null &
     pid=$!
     while kill -0 $pid 2>/dev/null; do
+      printf " "
       printf "."
       sleep 1
     done
