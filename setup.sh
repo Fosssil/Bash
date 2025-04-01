@@ -55,9 +55,7 @@ fi
 
 # Update apt repositories
 print_section "Updating Repos..."
-if sudo apt-get update >/dev/null &&
-  sudo apt autoremove -y &&
-  sudo apt autoclean; then
+if sudo apt-get update >/dev/null && sudo apt autoremove -y >/dev/null && sudo apt autoclean >/dev/null; then
   print_success "Repositories updated"
 else
   print_warning "Warning: Repository update failed, continuing..."
@@ -130,7 +128,6 @@ if command -v nvim >/dev/null 2>&1; then
     nvim --headless -c "Lazy install" -c "qa" >/dev/null &
     pid=$!
     while kill -0 $pid 2>/dev/null; do
-      printf " "
       printf "."
       sleep 1
     done
