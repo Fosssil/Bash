@@ -13,7 +13,7 @@ token_file="$HOME/token"
 # Trap to clean up on exit or interruption
 cleanup() {
   unset git_token
-  print_section "Cleaned up sensitive data"
+  print_section "Cleaned up sensitive data ^_^"
 }
 trap cleanup EXIT INT TERM
 
@@ -136,21 +136,17 @@ fi
 
 # Install Neovim Lazy packages
 print_section "Installing packages into Neovim..."
-if command -v nvim >/dev/null 2>&1; then
-  if [ ! -d ~/.local/share/nvim/lazy ]; then
-    (
-      nvim --headless -c "Lazy install" -c "qa" >/dev/null &
-      pid=$!
-      while kill -0 $pid 2>/dev/null; do
-        printf "."
-        sleep 1
-      done
-      echo ""
-    ) &&
-      print_success "Lazy packages installed"
-  else
-    print_success "Lazy already installed"
-  fi
+if command -v nvim >/dev/null 2>&1 && [ ! -d ~/.local/share/nvim/lazy ]; then
+  (
+    nvim --headless -c "Lazy install" -c "qa" >/dev/null &
+    pid=$!
+    while kill -0 $pid 2>/dev/null; do
+      printf "."
+      sleep 1
+    done
+    echo ""
+  ) &&
+    print_success "Lazy packages installed"
 else
   print_warning "Error: Neovim not found, skipping Lazy install"
 fi
