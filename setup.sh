@@ -32,7 +32,7 @@ print_success() {
 }
 
 # Prompt for sudo password if not already cached
-print_warning "This script requires sudo privileges.\n Please enter your password if prompted."
+print_warning "This script requires sudo privileges.\nPlease enter your password if prompted."
 if ! sudo -v; then
   echo -e "${red}Error: Sudo authentication failed. Exiting.${reset}"
   exit 1
@@ -86,7 +86,7 @@ if curl -fsSL https://deb.nodesource.com/setup_23.x -o nodesource_setup.sh 2>/de
     done
     echo ""
   ) &&
-    print_success "Done"
+    echo "Done"
   rm -f nodesource_setup.sh # removing temporary file
 else
   print_warning "Warning: Failed to download Node.js setup script, continuing..."
