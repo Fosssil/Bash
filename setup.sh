@@ -74,7 +74,7 @@ fi
 # Add nodejs latest version
 print_section "Adding node source setup for nodejs"
 curl -fsSL https://deb.nodesource.com/setup_23.x -o nodesource_setup.sh
-sudo -E nodesource_setup.sh
+sudo -E bash nodesource_setup.sh
 wait
 
 # Install required packages
