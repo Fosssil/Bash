@@ -177,3 +177,10 @@ if command -v nvim >/dev/null 2>&1; then
 else
   print_warning "Error: Neovim not found, skipping Lazy install"
 fi
+
+print_section "Installing Mason packages..."
+if nvim --headless -c 'MasonInstallAll' -c 'qa'; then
+  print_success "Mason packages installed successfully"
+else
+  print_warning "Error: Mason packages not installed, continuing..."
+fi
