@@ -137,7 +137,7 @@ fi
 # Install Neovim Lazy packages
 print_section "Installing packages into Neovim..."
 if command -v nvim >/dev/null 2>&1; then
-  if [ ! -d ~/.local/share/nvim/lazy ]; then
+  if [[ ! -d ~/.local/share/nvim/lazy ]]; then
     (
       nvim --headless -c "Lazy install" -c "qa" >/dev/null &
       pid=$!
