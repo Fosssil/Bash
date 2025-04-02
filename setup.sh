@@ -181,7 +181,8 @@ print_success "$number_of_upgradable packages can be upgraded"
 
 while true; do
   printf "\n"
-  print_warning -n "--> Do you want to proceed to upgrade? (y|n)"
+  # print_warning "--> Do you want to proceed to upgrade? (y|n)"
+  echo -en "${red}--> Do you want to proceed to upgrade? (y|n)${reset}"
   read -r yn
   case "$yn" in
   [yY])
