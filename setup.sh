@@ -103,7 +103,7 @@ print_section "Installing required packages:"
 packages=("git" "curl" "ansible-core" "neovim" "nodejs")
 printf "${yellow}+ %s\n${reset}" "${packages[@]}"
 if sudo apt-get install -y "${packages[@]}" >/dev/null; then
-  print_success "[*] Done"
+  print_success "[*] done"
 else
   print_warning "Warning: Some packages failed to install, continuing..."
 fi
@@ -120,20 +120,20 @@ fi
 print_section "Cloning the Nvim Configs"
 nvim_dir="$HOME/.config/nvim"
 if [[ -d "$nvim_dir" ]]; then
-  print_success "Getting latest version of nvim config"
+  print_success "Getting latest version of nvim config..."
   rm -rf "$nvim_dir"
   git clone https://github.com/Fosssil/nvim.git "$nvim_dir" 2>/dev/null
-  print_success "Cloned Neovim configs"
+  print_success "[*] cloned Neovim configs"
 else
   print_warning "Warning: Failed to clone Neovim configs, continuing..."
 fi
 
 # Ansible language server
+print_section "Installing ansible language server"
 if sudo npm install -g npm@latest >/dev/null; then
-  print_section "npm upgraded to $(npm -v)"
-  print_section "Installing ansible language server"
+  print_success "[*] npm upgraded to $(npm -v)"
   if sudo npm install -g @ansible/ansible-language-server >/dev/null; then
-    print_success "Done"
+    print_success "[*] done"
   else
     print_warning "Error: Failed to install ansible-language-server, continuing..."
   fi
@@ -180,6 +180,7 @@ number_of_upgradable="$(sudo apt list --upgradable 2>/dev/null | grep -vc "^List
 print_success "$number_of_upgradable packages can be upgraded"
 
 while true; do
+  printf "\n"
   print_warning "Do you want to proceed (y|n)"
   read -r yn
   case "$yn" in
