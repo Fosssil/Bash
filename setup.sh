@@ -179,8 +179,8 @@ print_section "Checking upgradable packages"
 number_of_upgradable="$(sudo apt list --upgradable 2>/dev/null | grep -vc "^Listing...")"
 print_success "$number_of_upgradable packages can be upgraded"
 
+# System upgrade prompt
 while true; do
-  printf "\n"
   input_prompt "Do you want to Full upgrade the system? (y|N)"
   read -r yn
   case "$yn" in
@@ -190,6 +190,24 @@ while true; do
     ;;
   [nN] | "")
     print_success "Skipping system upgrade"
+    break
+    ;;
+  *) echo "Invalid response, please enter 'y' or 'n'" ;;
+  esac
+done
+
+# System reboot prompt
+while true; do
+  unset yn
+  input_prompt "Do you want to restart the system? (y|N)"
+  read -r yn
+  case "$yn" in
+  [yY])
+    echo "System will restart in X seconds"
+    break
+    ;;
+  [nN])
+    echo "Skipping system restart"
     break
     ;;
   *) echo "Invalid response, please enter 'y' or 'n'" ;;
