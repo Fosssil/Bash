@@ -83,20 +83,24 @@ fi
 
 # Add nodejs latest version
 print_section "Adding node source setup for nodejs"
-if curl -fsSL https://deb.nodesource.com/setup_23.x -o nodesource_setup.sh 2>/dev/null; then
-  (
-    sudo -E bash nodesource_setup.sh >/dev/null &
-    pid=$!
-    while kill -0 $pid 2>/dev/null; do
-      printf "."
-      sleep 1
-    done
-    echo ""
-  ) &&
-    print_success "Done"
-  rm -f nodesource_setup.sh # removing temporary file
+if find /etc/apt/sources.list.d/nodesource.list; then
+  print_success "Nodesource is already available"
 else
-  print_warning "Warning: Failed to download Node.js setup script, continuing..."
+  if curl -fsSL https://deb.nodesource.com/setup_23.x -o nodesource_setup.sh 2>/dev/null; then
+    (
+      sudo -E bash nodesource_setup.sh >/dev/null &
+      pid=$!
+      while kill -0 $pid 2>/dev/null; do
+        printf "."
+        sleep 1
+      done
+      echo ""
+    ) &&
+      print_success "Done"
+    rm -f nodesource_setup.sh # removing temporary file
+  else
+    print_warning "Warning: Failed to download Node.js setup script, continuing..."
+  fi
 fi
 
 # Install required packages
