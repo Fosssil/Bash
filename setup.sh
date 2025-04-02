@@ -70,7 +70,7 @@ fi
 printf "\n"
 # number_of_upgradable="$(sudo apt list --upgradable 2>/dev/null | grep -c "upgradable")"
 print_section "Checking upgradable packages"
-number_of_upgradable="$(sudo apt list --upgradable 2>/dev/null | grep -v "^Listing..." | wc -l)"
+number_of_upgradable="$(sudo apt list --upgradable 2>/dev/null | grep -vc "^Listing...")"
 print_success "$number_of_upgradable packages are upgradable"
 
 # Add unstable Neovim PPA
