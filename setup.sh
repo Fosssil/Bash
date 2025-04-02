@@ -137,7 +137,7 @@ fi
 if sudo npm install -g npm@latest >/dev/null; then
   print_section "npm upgraded to $(npm -v)"
   print_section "Installing ansible language server"
-  if sudo npm install -g @ansible/ansible-language-server >/dev/null; then
+  if sudo npm install -g @ansible/ansible-language-server 2>/dev/null; then
     print_success "Done"
   else
     print_warning "Error: Failed to install ansible-language-server, continuing..."
