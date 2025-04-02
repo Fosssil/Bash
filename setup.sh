@@ -104,8 +104,7 @@ fi
 # Install required packages
 print_section "Installing required packages:"
 packages=("git" "curl" "dialog" "ansible-core" "neovim" "nodejs")
-printf "${green}+ %s\n${reset}" "${packages[@]}"
-printf "\n"
+printf "${yellow}+ %s\n${reset}" "${packages[@]}"
 if sudo apt-get install -y "${packages[@]}" >/dev/null; then
   print_success "Done"
 else
