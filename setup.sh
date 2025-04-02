@@ -83,7 +83,7 @@ fi
 
 # Add nodejs latest version
 print_section "Adding node source setup for nodejs"
-if find /etc/apt/sources.list.d/nodesource.list >/dev/null; then
+if find /etc/apt/sources.list.d/nodesource.list 2>/dev/null; then
   print_success "Nodesource is already available"
 else
   if curl -fsSL https://deb.nodesource.com/setup_23.x -o nodesource_setup.sh 2>/dev/null; then
