@@ -67,7 +67,7 @@ else
 fi
 
 # Getting number of upgradable packages
-sudo apt list --upgradable | grep --regexp=[0-9] -c "upgradable"
+sudo apt list --upgradable | grep -c "upgradable" | grep --regexp=[0-9]*
 
 # Add unstable Neovim PPA
 print_section "Adding unstable Neovim PPA..."
