@@ -206,7 +206,7 @@ while true; do
     echo "System will restart in X seconds"
     break
     ;;
-  [nN])
+  [nN] | "")
     echo "Skipping system restart"
     break
     ;;
