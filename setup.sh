@@ -43,6 +43,8 @@ print_section "Getting token file provided by $git_username from $token_file"
 if [[ ! -f "$token_file" ]]; then
   print_warning "Error: $token_file not found. Please create it with your GitHub token."
   exit 1
+else
+  print_success "Got it..."
 fi
 git_token=$(tr -d '[:space:]' <"$token_file")
 if [[ -z "$git_token" ]]; then
@@ -106,7 +108,7 @@ print_section "Installing required packages:"
 packages=("git" "curl" "dialog" "ansible-core" "neovim" "nodejs")
 printf "${yellow}+ %s\n${reset}" "${packages[@]}"
 if sudo apt-get install -y "${packages[@]}" >/dev/null; then
-  print_success "Done"
+  print_success "[*] Done"
 else
   print_warning "Warning: Some packages failed to install, continuing..."
 fi
