@@ -134,13 +134,13 @@ else
 fi
 
 # Ansible language server
-print_section "Installing ansible language server"
 if sudo npm install -g npm@latest >/dev/null; then
-  print_success "npm version is $(npm -v)"
+  print_success "npm upgraded to $(npm -v)"
+  print_section "Installing ansible language server"
   if sudo npm install -g @ansible/ansible-language-server >/dev/null; then
     print_success "Done"
   else
-    print_warning "Error: Failed to install als, continuing..."
+    print_warning "Error: Failed to install ansible-language-server, continuing..."
   fi
 else
   print_warning "Error: Failed to upgrade npm, continuing..."
@@ -177,11 +177,4 @@ if command -v nvim >/dev/null 2>&1; then
   fi
 else
   print_warning "Error: Neovim not found, skipping Lazy install"
-fi
-
-print_section "Installing Mason packages..."
-if nvim --headless -c 'MasonInstallAll' -c 'qa'; then
-  print_success "Mason packages installed successfully"
-else
-  print_warning "Error: Mason packages not installed, continuing..."
 fi
