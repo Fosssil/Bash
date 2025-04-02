@@ -134,10 +134,14 @@ fi
 
 # Ansible language server
 print_section "Installing ansible language server"
-if sudo npm install -g @ansible/ansible-language-server; then
-  print_success "Done"
+if sudo npm install -g npm@latest; then
+  if sudo npm install -g @ansible/ansible-language-server; then
+    print_success "Done"
+  else
+    print_warning "Error: Failed to install als, continuing..."
+  fi
 else
-  print_warning "Error: Failed to install als, continuing..."
+  print_warning "Error: Failed to upgrade npm, continuing..."
 fi
 
 # Clone Migration Playbook
