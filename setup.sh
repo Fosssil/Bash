@@ -197,6 +197,16 @@ while true; do
 done
 
 # System reboot prompt
+system_shutdown() {
+  counter=1
+  sudo shutdown --reboot +"${counter}"
+  while ${counter} <=60; do
+    counter=$((counter + 1))
+    sleep 1
+  done
+}
+
+system_shutdown
 while true; do
   unset yn
   input_prompt "Do you want to restart the system? (y|N)"
