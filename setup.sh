@@ -176,14 +176,14 @@ print_success "$number_of_upgradable packages can be upgraded"
 
 while true; do
   printf "\n"
-  echo -en "${red}--> Do you want to Fully upgrade the system? (y|n)${reset} "
+  echo -en "${red}--> Do you want to Fully upgrade the system? (y|N)${reset} "
   read -r yn
   case "$yn" in
   [yY])
     echo "Okay"
     break
     ;;
-  [nN])
+  [nN] | "")
     echo "Not Okay, continuing"
     break
     ;;
