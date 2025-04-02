@@ -66,6 +66,9 @@ else
   print_warning "Warning: Repository update failed, continuing..."
 fi
 
+# Getting number of upgradable packages
+sudo apt list --upgradable | grep -c "upgradable"
+
 # Add unstable Neovim PPA
 print_section "Adding unstable Neovim PPA..."
 if find /etc/apt/keyrings -maxdepth 1 -type f -regex ".*/neovim.*" | grep -q .; then
