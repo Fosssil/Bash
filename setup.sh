@@ -134,8 +134,9 @@ fi
 
 # Ansible language server
 print_section "Installing ansible language server"
-if sudo npm install -g npm@latest; then
-  if sudo npm install -g @ansible/ansible-language-server; then
+if sudo npm install -g npm@latest >/dev/null; then
+  print_success "npm version is $(npm -v)"
+  if sudo npm install -g @ansible/ansible-language-server >/dev/null; then
     print_success "Done"
   else
     print_warning "Error: Failed to install als, continuing..."
