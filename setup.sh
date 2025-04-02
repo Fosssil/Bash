@@ -68,11 +68,6 @@ else
   print_warning "Warning: Repository update failed, continuing..."
 fi
 
-# Getting number of upgradable packages
-print_section "Checking upgradable packages"
-number_of_upgradable="$(sudo apt list --upgradable 2>/dev/null | grep -vc "^Listing...")"
-print_success "$number_of_upgradable packages are upgradable"
-
 # Add unstable Neovim PPA
 print_section "Adding unstable Neovim PPA..."
 if find /etc/apt/keyrings -maxdepth 1 -type f -regex ".*/neovim.*" | grep -q .; then
@@ -105,7 +100,7 @@ fi
 
 # Install required packages
 print_section "Installing required packages:"
-packages=("git" "curl" "dialog" "ansible-core" "neovim" "nodejs")
+packages=("git" "curl" "ansible-core" "neovim" "nodejs")
 printf "${yellow}+ %s\n${reset}" "${packages[@]}"
 if sudo apt-get install -y "${packages[@]}" >/dev/null; then
   print_success "[*] Done"
@@ -137,7 +132,7 @@ fi
 if sudo npm install -g npm@latest >/dev/null; then
   print_section "npm upgraded to $(npm -v)"
   print_section "Installing ansible language server"
-  if sudo npm install -g @ansible/ansible-language-server 2>/dev/null; then
+  if sudo npm install -g @ansible/ansible-language-server >/dev/null; then
     print_success "Done"
   else
     print_warning "Error: Failed to install ansible-language-server, continuing..."
@@ -178,3 +173,20 @@ if command -v nvim >/dev/null 2>&1; then
 else
   print_warning "Error: Neovim not found, skipping Lazy install"
 fi
+
+# Getting number of upgradable packages
+print_section "Checking upgradable packages"
+number_of_upgradable="$(sudo apt list --upgradable 2>/dev/null | grep -vc "^Listing...")"
+print_success "$number_of_upgradable packages can be upgraded"
+
+while true; do
+  read -r -p "Do you want to proceed? (y/n)" yn
+  case "$yn" in
+  [yY])
+    echo "Okay"
+    ;;
+  [nN])
+    echo "Not Okay"
+    ;;
+  esac
+done
