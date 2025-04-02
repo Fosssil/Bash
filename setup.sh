@@ -184,9 +184,9 @@ while true; do
     break
     ;;
   [nN] | "")
-    echo "Not Okay, continuing"
+    print_success "Skipping system upgrade"
     break
     ;;
-  *) echo "Invalid respose" ;;
+  *) echo "Invalid response, please enter 'y' or 'n'" ;;
   esac
 done
