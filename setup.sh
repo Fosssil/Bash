@@ -180,13 +180,16 @@ number_of_upgradable="$(sudo apt list --upgradable 2>/dev/null | grep -vc "^List
 print_success "$number_of_upgradable packages can be upgraded"
 
 while true; do
-  read -r -p "Do you want to proceed? (y/n)" yn
+  read -r -p "${red}Do you want to proceed? (y/n)${reset}" yn
   case "$yn" in
   [yY])
     echo "Okay"
+    break
     ;;
   [nN])
-    echo "Not Okay"
+    echo "Not Okay, continuing"
+    break
     ;;
+  *) echo "Invalid respose" ;;
   esac
 done
