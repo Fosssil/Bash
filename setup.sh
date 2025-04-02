@@ -18,6 +18,11 @@ cleanup() {
 trap cleanup EXIT INT TERM
 
 # Printing functions
+input_prompt() {
+  printf "\n"
+  echo -en "${red}${1}>>>${reset} "
+}
+
 print_section() {
   printf "\n"
   echo -e "${green}${1}${reset}"
@@ -176,7 +181,7 @@ print_success "$number_of_upgradable packages can be upgraded"
 
 while true; do
   printf "\n"
-  echo -en "${red}--> Do you want to Fully upgrade the system? (y|N)${reset} "
+  input_prompt "Do you want to Full upgrade the system? (y|N)"
   read -r yn
   case "$yn" in
   [yY])
