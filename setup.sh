@@ -119,14 +119,9 @@ fi
 # Clone Neovim config
 print_section "Cloning the Nvim Configs"
 nvim_dir="$HOME/.config/nvim"
-if [[ -d "$nvim_dir" ]]; then
-  print_success "Getting latest version of nvim config..."
-  rm -rf "$nvim_dir"
-  git clone https://github.com/Fosssil/nvim.git "$nvim_dir" 2>/dev/null
-  print_success "[*] cloned Neovim configs"
-else
-  print_warning "Warning: Failed to clone Neovim configs, continuing..."
-fi
+rm -rf "$nvim_dir"
+git clone https://github.com/Fosssil/nvim.git "$nvim_dir" 2>/dev/null
+print_success "Cloned Neovim configs"
 
 # Ansible language server
 print_section "Installing ansible language server"
@@ -181,8 +176,7 @@ print_success "$number_of_upgradable packages can be upgraded"
 
 while true; do
   printf "\n"
-  # print_warning "--> Do you want to proceed to upgrade? (y|n)"
-  echo -en "${red}--> Do you want to proceed to upgrade? (y|n)${reset}"
+  echo -en "${red}--> Do you want to Fully upgrade the system? (y|n)${reset} "
   read -r yn
   case "$yn" in
   [yY])
