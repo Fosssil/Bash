@@ -20,7 +20,7 @@ trap cleanup EXIT INT TERM
 # Printing functions
 input_prompt() {
   printf "\n"
-  echo -en "${red}>>> ${1}reset} "
+  echo -en "${red}>>> ${1}${reset} "
 }
 
 print_section() {
