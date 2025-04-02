@@ -197,26 +197,19 @@ while true; do
 done
 
 # System reboot prompt
-system_shutdown() {
-  counter=1
-  sudo shutdown --reboot +"${counter}"
-  while ${counter} <=60; do
-    counter=$((counter + 1))
-    sleep 1
-  done
-}
-
-system_shutdown
 while true; do
   unset yn
   input_prompt "Do you want to restart the system? (y|N)"
   read -r yn
   case "$yn" in
   [yY])
-    echo "System will restart in X seconds"
+    sudo shutdown --reboot
+    print_warning "Warning: System will restart in 60 seconds"
+    print_section "Run: ${red}shutdown -c${reset} to cancel the reboot"
     break
     ;;
   [nN] | "")
+    sudo shutdown -c >/dev/null
     echo "Skipping system restart"
     break
     ;;
