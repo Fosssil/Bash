@@ -205,7 +205,7 @@ while true; do
   [yY])
     sudo shutdown --reboot
     print_warning "Warning: System will restart in 60 seconds"
-    print_section "Run: ${red}shutdown -c${reset} to cancel the reboot"
+    print_section "Run: ${red}shutdown -c${reset} ${green}to cancel the reboot"
     break
     ;;
   [nN] | "")
