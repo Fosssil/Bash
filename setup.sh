@@ -132,6 +132,14 @@ else
   print_warning "Warning: Failed to clone Neovim configs, continuing..."
 fi
 
+# Ansible language server
+print_section "Installing ansible language server"
+if sudo npm install -g @ansible/ansible-language-server; then
+  print_success "Done"
+else
+  print_warning "Error: Failed to install als, continuing..."
+fi
+
 # Clone Migration Playbook
 print_section "Cloning the Migration Playbook..."
 playbook_dir="$HOME/migration_playbook"
