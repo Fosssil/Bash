@@ -131,7 +131,7 @@ fi
 # Ansible language server
 print_section "Installing ansible language server"
 if sudo npm install -g npm@latest >/dev/null; then
-  print_success "[*] npm upgraded to $(npm -v)"
+  print_success "Npm upgraded to $(npm -v)"
   if sudo npm install -g @ansible/ansible-language-server >/dev/null; then
     print_success "[*] done"
   else
@@ -181,7 +181,7 @@ print_success "$number_of_upgradable packages can be upgraded"
 
 while true; do
   printf "\n"
-  print_warning "Do you want to proceed (y|n)"
+  print_warning "--> Do you want to proceed (y|n)"
   read -r yn
   case "$yn" in
   [yY])
